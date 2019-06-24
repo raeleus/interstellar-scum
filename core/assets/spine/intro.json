@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "9D/NVbQfahDLZ6D43SgwFqvlfis", "spine": "3.7.94", "width": 965, "height": 532, "images": "../output/", "audio": "" },
+"skeleton": { "hash": "TtdUWjyRQHUqtJ6kK4+VMAGLftA", "spine": "3.7.94", "width": 965, "height": 532, "images": "../output/", "audio": "" },
 "bones": [
 	{ "name": "root", "x": 482.78, "y": 267.12 },
 	{ "name": "earth", "parent": "root", "length": 157.7, "rotation": 0.56, "x": -6.23, "y": 73.56 },
@@ -46,17 +46,22 @@
 			"ship": {
 				"translate": [
 					{ "time": 0, "x": -61.84, "y": 0 },
-					{ "time": 1.3, "x": 632.31, "y": 0 }
+					{ "time": 3.3667, "x": 632.31, "y": 0 }
 				],
 				"scale": [
-					{ "time": 0, "x": 0.382, "y": 1 },
-					{ "time": 0.4333, "x": 1, "y": 1 }
+					{
+						"time": 0,
+						"x": 0.382,
+						"y": 1,
+						"curve": [ 0.497, 0.06, 0.519, 2.19 ]
+					},
+					{ "time": 0.5667, "x": 1, "y": 1 }
 				]
 			},
 			"earth": {
 				"translate": [
 					{ "time": 0, "x": 0, "y": 0 },
-					{ "time": 0.8667, "x": -666.69, "y": -6.54 }
+					{ "time": 2.2333, "x": -666.69, "y": -6.54 }
 				]
 			}
 		}
