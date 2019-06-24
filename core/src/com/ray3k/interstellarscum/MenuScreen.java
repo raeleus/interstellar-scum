@@ -3,10 +3,11 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
@@ -24,13 +25,34 @@ public class MenuScreen implements Screen {
         Table root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
+    
+        root.pad(20);
+        Label label = new Label("INTERSTELLAR SCUM", skin,"title");
+        root.add(label).expand().bottom();
         
-        SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
-        SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/intro.json", SkeletonData.class), Core.skeletonRenderer, template);
-        Image image = new Image(spineDrawable);
-        root.add(image);
+        root.row();
+        label = new Label("Type your name:", skin, "name");
+        root.add(label).spaceTop(75).spaceBottom(30);
         
+        root.row();
+        TextField textField = new TextField("",skin);
+        textField.setAlignment(Align.center);
+        root.add(textField).spaceBottom(75).minWidth(300);
+        stage.setKeyboardFocus(textField);
         
+        root.row();
+        TextButton textButton = new TextButton("OK", skin);
+        root.add(textButton).minWidth(300);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Core.core.setScreen(new IntroScreen());
+            }
+        });
+        
+        root.row();
+        label = new Label("A game by Raeleus... Copyright © Raymond Buckley 2019", skin);
+        root.add(label).expand().bottom();
     }
     
     @Override
