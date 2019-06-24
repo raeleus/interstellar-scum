@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "Q8ql7eP1NVjOxgrizCnwTtJFdSU", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "" },
+"skeleton": { "hash": "UvvHJ4umkhGuWcRIPRnCNJ6ugSo", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "../../../core/assets/sfx/" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "hip", "parent": "root", "x": 98.98, "y": 100.99 },
@@ -192,6 +192,10 @@
 		}
 	}
 },
+"events": {
+	"fart": { "audio": "fart.mp3" },
+	"vomit": { "audio": "vomit.mp3" }
+},
 "animations": {
 	"blink": {
 		"slots": {
@@ -377,7 +381,11 @@
 					]
 				}
 			}
-		}
+		},
+		"events": [
+			{ "time": 0.4, "name": "vomit" },
+			{ "time": 1.2, "name": "fart" }
+		]
 	},
 	"stand": {
 		"bones": {
