@@ -64,7 +64,20 @@ task dist(dependsOn: [clean, compileGwt]) {
             from "war"
             into "build/dist"
         }
+        delete {
+            delete "C:\\xampp\\htdocs"
+        }
+        copy {
+            from "build/dist"
+            into "C:\\xampp\\htdocs"
+        }
     }
+}
+
+task updateAndCreateZip(type: Zip, dependsOn: [dist]) {
+    archiveName "${project.appName}.zip"
+    from "build/dist"
+    destinationDir = file("build/zip")
 }
 
 task addSource {
