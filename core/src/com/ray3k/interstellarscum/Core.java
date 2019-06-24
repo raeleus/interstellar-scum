@@ -1,19 +1,14 @@
 package com.ray3k.interstellarscum;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.esotericsoftware.spine.*;
-import com.rafaskoberg.gdx.typinglabel.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.SkeletonRenderer;
 
 public class Core extends Game {
 	public static Core core;
@@ -40,7 +35,7 @@ public class Core extends Game {
 		
 		SkeletonDataLoader.SkeletonDataLoaderParameter parameter = new SkeletonDataLoader.SkeletonDataLoaderParameter("skin/interstellar-scum.atlas");
 		assetManager.load("spine/intro.json", SkeletonData.class, parameter);
-		assetManager.load("spine/intro.json", SkeletonData.class, parameter);
+		assetManager.load("spine/person.json", SkeletonData.class, parameter);
 		
 		assetManager.load("sfx/blast.mp3", Sound.class);
 		assetManager.load("sfx/concede.mp3", Sound.class);
@@ -48,6 +43,14 @@ public class Core extends Game {
 		assetManager.load("sfx/fart.mp3", Sound.class);
 		assetManager.load("sfx/hibernate.mp3", Sound.class);
 		assetManager.load("sfx/vomit.mp3", Sound.class);
+		
+		assetManager.finishLoading();
+		
+		skin = assetManager.get("skin/interstellar-scum.json");
+		textureAtlas = assetManager.get("skin/interstellar-scum.atlas");
+		
+		//set screen
+		setScreen(new PreloaderScreen());
 	}
 
 	@Override

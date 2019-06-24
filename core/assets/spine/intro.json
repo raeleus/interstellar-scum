@@ -1,7 +1,7 @@
 {
-"skeleton": { "hash": "BLucvinwexWj80kfd/q+dGplb/Y", "spine": "3.7.94", "width": 965, "height": 532, "images": "../output/", "audio": "" },
+"skeleton": { "hash": "9D/NVbQfahDLZ6D43SgwFqvlfis", "spine": "3.7.94", "width": 965, "height": 532, "images": "../output/", "audio": "" },
 "bones": [
-	{ "name": "root" },
+	{ "name": "root", "x": 482.78, "y": 267.12 },
 	{ "name": "earth", "parent": "root", "length": 157.7, "rotation": 0.56, "x": -6.23, "y": 73.56 },
 	{ "name": "ship", "parent": "root", "length": 210.26, "x": 64.88, "y": 73.56 }
 ],
