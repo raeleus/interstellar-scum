@@ -3,6 +3,7 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,9 +18,10 @@ import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 import regexodus.Matcher;
 import regexodus.Pattern;
 
-public class PreloaderScreen implements Screen {
+public class SplashScreen implements Screen {
     private Stage stage;
     private Skin skin;
+    private Table root;
     
     @Override
     public void show() {
@@ -27,9 +29,10 @@ public class PreloaderScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;
     
-        Table root = new Table();
+        root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
+        root.setBackground(skin.getDrawable("white"));
     
         SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
         final SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/splash.json", SkeletonData.class), Core.skeletonRenderer, template);
@@ -42,7 +45,7 @@ public class PreloaderScreen implements Screen {
                 stage.addAction(Actions.sequence(Actions.delay(1), new SingleAction() {
                     @Override
                     public void perform() {
-                        Core.core.setScreen(new MenuScreen());
+                        nextScreen();
                     }
                 }));
             }
@@ -61,15 +64,25 @@ public class PreloaderScreen implements Screen {
     
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(22 / 255f, 22 / 255f, 22 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         stage.act();
         stage.draw();
         
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()) {
-            Core.core.setScreen(new MenuScreen());
+            nextScreen();
         }
+    }
+    
+    private void nextScreen() {
+        Gdx.input.setInputProcessor(null);
+        root.addAction(Actions.sequence(Actions.color(new Color(22 / 255f, 22 / 255f, 22 / 255f, 1), 1), Actions.delay(1), new SingleAction() {
+            @Override
+            public void perform() {
+                Core.core.setScreen(new MenuScreen());
+            }
+        }));
     }
     
     @Override
