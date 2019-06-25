@@ -94,6 +94,7 @@ public class IntroScreen implements Screen {
                         }
                     });
                 } else if (entry.getAnimation().getName().equals("hide")) {
+                    Gdx.input.setInputProcessor(null);
                     stage.addAction(Actions.sequence(Actions.delay(3), new SingleAction() {
                         @Override
                         public void perform() {
@@ -122,6 +123,7 @@ public class IntroScreen implements Screen {
             public void nextScreen() {
                 if (listening) {
                     listening = false;
+                    Gdx.input.setInputProcessor(null);
                     stage.addAction(Actions.sequence(Actions.delay(1), new SingleAction() {
                         @Override
                         public void perform() {

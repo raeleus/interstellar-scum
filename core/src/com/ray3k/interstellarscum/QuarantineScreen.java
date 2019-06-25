@@ -67,6 +67,7 @@ public class QuarantineScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Gdx.input.setInputProcessor(null);
                 spineDrawable.getAnimationState().setAnimation(1, "hide", false);
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(.25f), new SingleAction() {
                     @Override

@@ -46,6 +46,7 @@ public class MenuScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Gdx.input.setInputProcessor(null);
                 Core.core.setScreen(new IntroScreen());
             }
         });
