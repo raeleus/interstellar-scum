@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "v08+IDjzMIMYnslbFLOTTDtkczw", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "../../../core/assets/sfx/" },
+"skeleton": { "hash": "b5EIZKjo2si4OY3M1ZJC9Si4fr0", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "../../../core/assets/sfx/" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "hip", "parent": "root", "x": 98.98, "y": 100.99 },
@@ -59,7 +59,6 @@
 	{ "name": "fart", "parent": "root", "length": 57.14, "rotation": 1.08, "x": 116.74, "y": 120.77 }
 ],
 "slots": [
-	{ "name": "preview_game", "bone": "root" },
 	{ "name": "fart", "bone": "fart" },
 	{ "name": "body", "bone": "root", "attachment": "body" },
 	{ "name": "head", "bone": "head", "attachment": "head" },
@@ -214,6 +213,58 @@
 					{ "time": 0.2667, "name": "eye-partial" },
 					{ "time": 0.3, "name": "eye" },
 					{ "time": 2.2333, "name": "eye" }
+				]
+			}
+		}
+	},
+	"hide": {
+		"slots": {
+			"body": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"eye-left": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"eye-right": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"fart": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"head": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"mouth": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"pupil-left": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
+				]
+			},
+			"pupil-right": {
+				"color": [
+					{ "time": 0, "color": "ffffffff" },
+					{ "time": 0.5333, "color": "ffffff00" }
 				]
 			}
 		}
