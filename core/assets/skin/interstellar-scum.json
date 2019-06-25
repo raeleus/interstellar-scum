@@ -92,6 +92,19 @@
 	"intro": {
 		"font": "font",
 		"fontColor": "bg"
+	},
+	"subtitle": {
+		"font": "subtitle"
+	},
+	"heading": {
+		"font": "heading"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
+	"default": {
+		"background": "scroll-bg",
+		"hScrollKnob": "scroll-horizontal",
+		"vScrollKnob": "scroll-vertical"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {

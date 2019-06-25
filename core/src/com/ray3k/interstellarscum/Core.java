@@ -50,7 +50,7 @@ public class Core extends Game {
 		textureAtlas = assetManager.get("skin/interstellar-scum.atlas");
 		
 		//set screen
-		setScreen(new VoteScreen());
+		setScreen(new ResultScreen());
 	}
 
 	@Override
