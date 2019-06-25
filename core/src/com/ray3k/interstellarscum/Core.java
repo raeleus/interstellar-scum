@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
@@ -23,12 +24,17 @@ public class Core extends Game {
 	public static float bgmVolume;
 	public static Array<String> infectedCrew;
 	public static Array<String> stasisCrew;
-	public static Array<String> normalCrew;
+	public static Array<String> livingCrew;
+	public static Array<String> hostCrew;
+	public static Array<String> doctorCrew;
+	public static Array<String> detectiveCrew;
+	public static Array<String> liarCrew;
+	public static Array<String> loyalistCrew;
 	public static String player;
 	public static Array<String> names;
 	public static Array<String> accusations;
 	public static Array<String> neutrals;
-	public static ObjectMap<String, String> crewToVoteMap;
+	public static ObjectMap<String, Array<String>> crewToVoteMap;
 	
 	@Override
 	public void create () {

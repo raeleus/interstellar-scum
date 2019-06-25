@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -75,7 +76,11 @@ public class MenuScreen implements Screen {
     private void nextScreen() {
         Core.infectedCrew = new Array<String>();
         Core.stasisCrew = new Array<String>();
-        Core.normalCrew = new Array<String>();
+        Core.livingCrew = new Array<String>();
+        Core.hostCrew = new Array<String>();
+        Core.doctorCrew = new Array<String>();
+        Core.detectiveCrew = new Array<String>();
+        Core.liarCrew = new Array<String>();
     
         TextField textField = stage.getRoot().findActor("textField");
         String name = textField.getText();
@@ -85,7 +90,38 @@ public class MenuScreen implements Screen {
         Array<String> temp = new Array<String>(Core.names);
         temp.shuffle();
         for (int i = 0; i < 15; i++) {
-            Core.normalCrew.add(temp.pop());
+            Core.livingCrew.add(temp.pop());
+        }
+        
+        temp = new Array<String>(Core.livingCrew);
+        int count = MathUtils.random(1, 2);
+        for (int i = 0; i < Math.min(temp.size, count); i++) {
+            temp.shuffle();
+            Core.hostCrew.add(temp.pop());
+        }
+    
+        count = MathUtils.random(2);
+        for (int i = 0; i < Math.min(temp.size, count); i++) {
+            temp.shuffle();
+            Core.doctorCrew.add(temp.pop());
+        }
+    
+        count = MathUtils.random(2);
+        for (int i = 0; i < Math.min(temp.size, count); i++) {
+            temp.shuffle();
+            Core.detectiveCrew.add(temp.pop());
+        }
+    
+        count = MathUtils.random(4);
+        for (int i = 0; i < Math.min(temp.size, count); i++) {
+            temp.shuffle();
+            Core.liarCrew.add(temp.pop());
+        }
+    
+        count = MathUtils.random(2, 4);
+        for (int i = 0; i < Math.min(temp.size, count); i++) {
+            temp.shuffle();
+            Core.loyalistCrew.add(temp.pop());
         }
     
         Gdx.input.setInputProcessor(null);

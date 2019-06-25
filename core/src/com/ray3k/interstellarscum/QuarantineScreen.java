@@ -1,12 +1,9 @@
 package com.ray3k.interstellarscum;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
@@ -31,11 +27,11 @@ public class QuarantineScreen implements Screen {
     
     @Override
     public void show() {
-        showDiscussion = Core.normalCrew.size == 15;
+        showDiscussion = Core.livingCrew.size == 15;
         
-        if (Core.normalCrew.size > 0) {
-            String crew = Core.normalCrew.random();
-            Core.normalCrew.removeValue(crew, false);
+        if (Core.livingCrew.size > 0) {
+            String crew = Core.livingCrew.random();
+            Core.livingCrew.removeValue(crew, false);
             Core.infectedCrew.add(crew);
         }
         
