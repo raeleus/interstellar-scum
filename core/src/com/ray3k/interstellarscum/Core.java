@@ -45,6 +45,7 @@ public class Core extends Game {
 		assetManager.load("spine/intro.json", SkeletonData.class, parameter);
 		assetManager.load("spine/person.json", SkeletonData.class, parameter);
 		assetManager.load("spine/space.json", SkeletonData.class, parameter);
+		assetManager.load("spine/splash.json", SkeletonData.class, parameter);
 		
 		assetManager.load("sfx/blast.mp3", Sound.class);
 		assetManager.load("sfx/concede.mp3", Sound.class);
@@ -52,6 +53,8 @@ public class Core extends Game {
 		assetManager.load("sfx/fart.mp3", Sound.class);
 		assetManager.load("sfx/hibernate.mp3", Sound.class);
 		assetManager.load("sfx/vomit.mp3", Sound.class);
+		assetManager.load("sfx/libgdx.mp3", Sound.class);
+		assetManager.load("sfx/bubble.mp3", Sound.class);
 		
 		assetManager.finishLoading();
 		
@@ -68,7 +71,7 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new SpaceScreen());
+		setScreen(new PreloaderScreen());
 	}
 
 	@Override
