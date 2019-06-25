@@ -77,6 +77,25 @@
 	"selection": {
 		"name": "white",
 		"color": "selection"
+	},
+	"button-arrow-bg-down": {
+		"name": "button-arrow-bg",
+		"color": "button-down"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+	"default": {
+		"up": "button-arrow-bg"
+	},
+	"left": {
+		"imageUp": "button-arrow-left",
+		"up": "button-arrow-bg",
+		"down": "button-arrow-bg-down"
+	},
+	"right": {
+		"imageUp": "button-arrow-right",
+		"up": "button-arrow-bg",
+		"down": "button-arrow-bg-down"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -98,6 +117,15 @@
 	},
 	"heading": {
 		"font": "heading"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
+	"default-horizontal": {
+		"background": "progress-bar",
+		"knob": "progress-bar-knob"
+	},
+	"default-vertical": {
+		"background": "progress-bar"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {

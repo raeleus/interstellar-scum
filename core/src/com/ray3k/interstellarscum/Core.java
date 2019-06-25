@@ -80,7 +80,7 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new SplashScreen());
+		setScreen(new MenuScreen());
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class DiscussionScreen implements Screen {
         
         root.pad(20);
         root.defaults().growX().expandY();
-        TypingLabel typingLabel = new TypingLabel("{FAST}{EASE}{COLOR=RED}My god! <name> managed to pass screening with the Scum!\nAre we exposed? ARE WE EXPOSED?", skin);
+        TypingLabel typingLabel = new TypingLabel("{FAST}{EASE}{COLOR=RED}My god! " + Core.infectedCrew.peek() + " managed to pass screening with the Scum!\nAre we exposed? ARE WE EXPOSED?", skin);
         typingLabel.setWrap(true);
         root.add(typingLabel);
         labels.add(typingLabel);

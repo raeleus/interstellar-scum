@@ -81,6 +81,7 @@ public class MenuScreen implements Screen {
         Core.doctorCrew = new Array<String>();
         Core.detectiveCrew = new Array<String>();
         Core.liarCrew = new Array<String>();
+        Core.loyalistCrew = new Array<String>();
     
         TextField textField = stage.getRoot().findActor("textField");
         String name = textField.getText();
