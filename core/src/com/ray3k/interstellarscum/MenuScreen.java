@@ -80,7 +80,7 @@ public class MenuScreen implements Screen {
         TextField textField = stage.getRoot().findActor("textField");
         String name = textField.getText();
         if (name.equals("")) name = "You";
-        Core.normalCrew.add(name);
+        Core.player = name;
     
         Array<String> temp = new Array<String>(Core.names);
         temp.shuffle();

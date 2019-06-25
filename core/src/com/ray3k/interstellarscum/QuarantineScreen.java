@@ -27,9 +27,18 @@ import regexodus.Pattern;
 public class QuarantineScreen implements Screen {
     private Stage stage;
     private Skin skin;
+    private boolean showDiscussion;
     
     @Override
     public void show() {
+        showDiscussion = Core.normalCrew.size == 15;
+        
+        if (Core.normalCrew.size > 0) {
+            String crew = Core.normalCrew.random();
+            Core.normalCrew.removeValue(crew, false);
+            Core.infectedCrew.add(crew);
+        }
+        
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;
@@ -39,7 +48,7 @@ public class QuarantineScreen implements Screen {
         stage.addActor(root);
     
         root.pad(20);
-        final TypingLabel typingLabel = new TypingLabel("{EASE}Neve is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
+        final TypingLabel typingLabel = new TypingLabel("{EASE}" + Core.infectedCrew.peek() + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
         root.add(typingLabel);
         typingLabel.pause();
         
@@ -72,7 +81,11 @@ public class QuarantineScreen implements Screen {
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(.25f), new SingleAction() {
                     @Override
                     public void perform() {
-                        Core.core.setScreen(new DiscussionScreen());
+                        if (showDiscussion) {
+                            Core.core.setScreen(new DiscussionScreen());
+                        } else {
+                            Core.core.setScreen(new GameScreen());
+                        }
                     }
                 }));
             }
