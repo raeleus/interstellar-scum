@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 
 public class MenuScreen implements Screen {
@@ -35,7 +35,7 @@ public class MenuScreen implements Screen {
         root.add(label).spaceTop(75).spaceBottom(30);
         
         root.row();
-        TextField textField = new TextField("",skin);
+        final TextField textField = new TextField("",skin);
         textField.setAlignment(Align.center);
         root.add(textField).spaceBottom(75).minWidth(300);
         stage.setKeyboardFocus(textField);
@@ -46,6 +46,20 @@ public class MenuScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Core.infectedCrew = new Array<String>();
+                Core.stasisCrew = new Array<String>();
+                Core.normalCrew = new Array<String>();
+                
+                String name = textField.getText();
+                if (name.equals("")) name = "You";
+                Core.normalCrew.add(name);
+                
+                Array<String> temp = new Array<String>(Core.names);
+                temp.shuffle();
+                for (int i = 0; i < 15; i++) {
+                    Core.normalCrew.add(temp.pop());
+                }
+                
                 Gdx.input.setInputProcessor(null);
                 Core.core.setScreen(new IntroScreen());
             }

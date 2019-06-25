@@ -1,12 +1,14 @@
 package com.ray3k.interstellarscum;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
 
@@ -18,6 +20,12 @@ public class Core extends Game {
 	public static SkeletonRenderer skeletonRenderer;
 	public static float sfxVolume;
 	public static float bgmVolume;
+	public static Array<String> infectedCrew;
+	public static Array<String> stasisCrew;
+	public static Array<String> normalCrew;
+	public static Array<String> names;
+	public static Array<String> accusations;
+	public static Array<String> neutrals;
 	
 	@Override
 	public void create () {
@@ -49,8 +57,17 @@ public class Core extends Game {
 		skin = assetManager.get("skin/interstellar-scum.json");
 		textureAtlas = assetManager.get("skin/interstellar-scum.atlas");
 		
+		String text = Gdx.files.internal("data/names.txt").readString();
+		names = new Array<String>(text.split("\\n"));
+		
+		text = Gdx.files.internal("data/accusations.txt").readString();
+		accusations = new Array<String>(text.split("\\n"));
+		
+		text = Gdx.files.internal("data/neutrals.txt").readString();
+		neutrals = new Array<String>(text.split("\\n"));
+		
 		//set screen
-		setScreen(new ResultScreen());
+		setScreen(new PreloaderScreen());
 	}
 
 	@Override
