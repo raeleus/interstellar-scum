@@ -3,6 +3,8 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -15,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
 import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.Slot;
+import com.esotericsoftware.spine.attachments.PointAttachment;
 import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 import regexodus.Matcher;
@@ -24,10 +28,12 @@ public class QuarantineScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private boolean showDiscussion;
+    private ParticleEffect particleEffect;
     
     @Override
     public void show() {
         showDiscussion = Core.livingCrew.size == 15;
+        particleEffect = Core.assetManager.get("particles/barf.p");
         
         if (Core.livingCrew.size > 0) {
             String crew = Core.livingCrew.random();
@@ -62,6 +68,16 @@ public class QuarantineScreen implements Screen {
                 
                 if (matcher.find()) {
                     Core.core.playSound(matcher.group(), 1);
+                    
+                    if (matcher.group().equals("vomit")) {
+                        Slot slot = spineDrawable.getSkeleton().findSlot("barf");
+                        PointAttachment attachment = (PointAttachment) slot.getAttachment();
+                        Vector2 result = new Vector2();
+                        attachment.computeWorldPosition(slot.getBone(), result);
+    
+                        particleEffect.start();
+                        particleEffect.setPosition(result.x, result.y);
+                    }
                 }
             }
         });
@@ -101,8 +117,12 @@ public class QuarantineScreen implements Screen {
         Gdx.gl.glClearColor(22f / 255f, 22f / 255f, 22f / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        stage.act();
+        stage.act(delta);
         stage.draw();
+        
+        stage.getBatch().begin();
+        particleEffect.draw(stage.getBatch(), delta);
+        stage.getBatch().end();
     }
     
     @Override

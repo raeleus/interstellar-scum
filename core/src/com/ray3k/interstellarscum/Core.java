@@ -3,13 +3,14 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
@@ -65,6 +66,10 @@ public class Core extends Game {
 		assetManager.load("sfx/libgdx.mp3", Sound.class);
 		assetManager.load("sfx/bubble.mp3", Sound.class);
 		
+		ParticleEffectLoader.ParticleEffectParameter particleEffectParameter = new ParticleEffectLoader.ParticleEffectParameter();
+		particleEffectParameter.atlasFile = "skin/interstellar-scum.atlas";
+		assetManager.load("particles/barf.p", ParticleEffect.class, particleEffectParameter);
+		
 		assetManager.finishLoading();
 		
 		skin = assetManager.get("skin/interstellar-scum.json");
@@ -80,7 +85,7 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new MenuScreen());
+		setScreen(new SplashScreen());
 	}
 
 	@Override

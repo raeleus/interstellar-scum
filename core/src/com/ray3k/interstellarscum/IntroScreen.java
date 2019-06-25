@@ -74,7 +74,7 @@ public class IntroScreen implements Screen {
                                 public void perform() {
                                     if (textState == 0) {
                                         typingLabel.setText("{FASTER}{FADE=#16161600;#161616FF;1}Status: 16 crew - status well\n" +
-                                                "5223 passengers - status hybernation\n" +
+                                                "5223 passengers - status hibernation\n" +
                                                 "Days to destination: 365 (estimate)\n" +
                                                 "Personnel Records are Confidential{ENDFADE}");
                                         typingLabel.restart();
@@ -140,7 +140,7 @@ public class IntroScreen implements Screen {
         Gdx.gl.glClearColor(22f / 255f, 22f / 255f, 22f / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        stage.act();
+        stage.act(delta);
         stage.draw();
     }
     

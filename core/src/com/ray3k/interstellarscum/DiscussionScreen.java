@@ -122,7 +122,7 @@ public class DiscussionScreen implements Screen {
         Gdx.gl.glClearColor(22f / 255f, 22f / 255f, 22f / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        stage.act();
+        stage.act(delta);
         stage.draw();
     }
     
