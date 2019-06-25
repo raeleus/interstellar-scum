@@ -3,10 +3,11 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
@@ -24,13 +25,30 @@ public class VoteScreen implements Screen {
         Table root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
+    
+        root.pad(20);
+        Label label = new Label("THE VOTE", skin, "title");
+        root.add(label);
         
-        SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
-        SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/intro.json", SkeletonData.class), Core.skeletonRenderer, template);
-        Image image = new Image(spineDrawable);
-        root.add(image);
+        root.row();
+        label = new Label("Kyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)\nKyla (3 votes)\nLucas (2 votes)", skin);
+        root.add(label).expandY();
         
-        
+        root.row();
+        TextButton textButton = new TextButton("CONTINUE",skin, "small");
+        root.add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.input.setInputProcessor(null);
+                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(1), new SingleAction() {
+                    @Override
+                    public void perform() {
+                        Core.core.setScreen(new GameScreen());
+                    }
+                }));
+            }
+        });
     }
     
     @Override
