@@ -62,7 +62,7 @@ public class QuarantineScreen implements Screen {
         });
         
         root.row();
-        TextButton textButton = new TextButton("OK", skin);
+        TextButton textButton = new TextButton("CONTINUE", skin, "small");
         root.add(textButton).minWidth(300f);
         textButton.addListener(new ChangeListener() {
             @Override

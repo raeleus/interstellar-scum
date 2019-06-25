@@ -98,7 +98,7 @@ public class IntroScreen implements Screen {
                     stage.addAction(Actions.sequence(Actions.delay(3), new SingleAction() {
                         @Override
                         public void perform() {
-                            Core.core.setScreen(new QuarantineScreen());
+                            Core.core.setScreen(new SpaceScreen());
                         }
                     }));
                 }

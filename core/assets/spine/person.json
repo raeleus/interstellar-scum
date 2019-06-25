@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "b5EIZKjo2si4OY3M1ZJC9Si4fr0", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "../../../core/assets/sfx/" },
+"skeleton": { "hash": "L4DMJ5jkntQTu28hbQ4exEKdqjI", "spine": "3.7.94", "width": 187.44, "height": 349.88, "images": "../output/", "audio": "../../../core/assets/sfx/" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "hip", "parent": "root", "x": 98.98, "y": 100.99 },
@@ -66,7 +66,7 @@
 	{ "name": "eye-right", "bone": "head", "attachment": "eye" },
 	{ "name": "pupil-right", "bone": "pupil-right", "attachment": "pupil" },
 	{ "name": "pupil-left", "bone": "pupil-left", "attachment": "pupil" },
-	{ "name": "mouth", "bone": "head", "attachment": "mouth" },
+	{ "name": "mouth", "bone": "head", "attachment": "mouth-open" },
 	{ "name": "arm-right-path", "bone": "body10", "attachment": "arm-right" },
 	{ "name": "arm-left-path", "bone": "body10", "attachment": "arm-left-path" },
 	{ "name": "body-path", "bone": "hip", "attachment": "body-path" },
@@ -295,6 +295,7 @@
 			},
 			"mouth": {
 				"attachment": [
+					{ "time": 0, "name": "mouth" },
 					{ "time": 0.4, "name": "mouth-open" },
 					{ "time": 0.8, "name": "mouth" }
 				]

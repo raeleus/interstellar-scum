@@ -44,6 +44,7 @@ public class Core extends Game {
 		SkeletonDataLoader.SkeletonDataLoaderParameter parameter = new SkeletonDataLoader.SkeletonDataLoaderParameter("skin/interstellar-scum.atlas");
 		assetManager.load("spine/intro.json", SkeletonData.class, parameter);
 		assetManager.load("spine/person.json", SkeletonData.class, parameter);
+		assetManager.load("spine/space.json", SkeletonData.class, parameter);
 		
 		assetManager.load("sfx/blast.mp3", Sound.class);
 		assetManager.load("sfx/concede.mp3", Sound.class);
@@ -67,7 +68,7 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new PreloaderScreen());
+		setScreen(new SpaceScreen());
 	}
 
 	@Override
