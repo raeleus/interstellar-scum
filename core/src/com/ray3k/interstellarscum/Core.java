@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -85,12 +86,13 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new SplashScreen());
+		setScreen(new PreloaderScreen());
 	}
 
 	@Override
 	public void render () {
-		super.render();
+		float delta = Math.min(Gdx.graphics.getDeltaTime(), .02f);
+		if (screen != null) screen.render(delta);
 	}
 	
 	@Override
