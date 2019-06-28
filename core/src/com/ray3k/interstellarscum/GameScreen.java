@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Scaling;
@@ -88,9 +89,17 @@ public class GameScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Core.core.setScreen(new VoteScreen());
+                stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.delay(.5f), new SingleAction() {
+                    @Override
+                    public void perform() {
+                        Core.core.setScreen(new VoteScreen());
+                    }
+                }));
             }
         });
+        
+        stage.getRoot().setColor(1,1,1,0);
+        stage.addAction(Actions.fadeIn(.5f));
         
 //        SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
 //        SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/intro.json", SkeletonData.class), Core.skeletonRenderer, template);
