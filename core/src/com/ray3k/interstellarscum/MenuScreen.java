@@ -113,14 +113,14 @@ public class MenuScreen implements Screen {
             person.type = Person.Type.DETECTIVE;
         }
     
-        count = MathUtils.random(4);
+        count = MathUtils.random(2, 4);
         for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
             tempCrew.shuffle();
             Person person = tempCrew.pop();
             person.type = Person.Type.LIAR;
         }
     
-        count = MathUtils.random(2);
+        count = MathUtils.random(1,3);
         for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
             tempCrew.shuffle();
             Person person = tempCrew.pop();
