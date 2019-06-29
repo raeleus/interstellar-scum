@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
@@ -32,14 +33,18 @@ public class QuarantineScreen implements Screen {
     
     @Override
     public void show() {
-        showDiscussion = Core.livingCrew.size == 15;
+        Array<Person> livingCrew = new Array<Person>();
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE) {
+                livingCrew.add(person);
+            }
+        }
+        showDiscussion = livingCrew.size == 15;
         particleEffect = Core.assetManager.get("particles/barf.p");
         
-        if (Core.livingCrew.size > 0) {
-            String crew = Core.livingCrew.random();
-            Core.livingCrew.removeValue(crew, false);
-            Core.infectedCrew.add(crew);
-        }
+        
+        Person infected = livingCrew.random();
+        infected.mode = Person.Mode.SICK;
         
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
@@ -50,7 +55,7 @@ public class QuarantineScreen implements Screen {
         stage.addActor(root);
     
         root.pad(20);
-        final TypingLabel typingLabel = new TypingLabel("{EASE}" + Core.infectedCrew.peek() + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
+        final TypingLabel typingLabel = new TypingLabel("{EASE}" + infected.name + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
         root.add(typingLabel);
         typingLabel.pause();
         

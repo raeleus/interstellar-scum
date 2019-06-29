@@ -74,14 +74,7 @@ public class MenuScreen implements Screen {
     }
     
     private void nextScreen() {
-        Core.infectedCrew = new Array<String>();
-        Core.stasisCrew = new Array<String>();
-        Core.livingCrew = new Array<String>();
-        Core.hostCrew = new Array<String>();
-        Core.doctorCrew = new Array<String>();
-        Core.detectiveCrew = new Array<String>();
-        Core.liarCrew = new Array<String>();
-        Core.loyalistCrew = new Array<String>();
+        Core.crew = new Array<Person>();
     
         TextField textField = stage.getRoot().findActor("textField");
         String name = textField.getText();
@@ -91,38 +84,47 @@ public class MenuScreen implements Screen {
         Array<String> temp = new Array<String>(Core.names);
         temp.shuffle();
         for (int i = 0; i < 15; i++) {
-            Core.livingCrew.add(temp.pop());
+            Person person = new Person();
+            person.name = temp.pop();
+            person.type = Person.Type.NORMAL;
+            person.mode = Person.Mode.ALIVE;
+            Core.crew.add(person);
         }
         
-        temp = new Array<String>(Core.livingCrew);
+        Array<Person> tempCrew = new Array<Person>(Core.crew);
         int count = MathUtils.random(1, 2);
-        for (int i = 0; i < Math.min(temp.size, count); i++) {
-            temp.shuffle();
-            Core.hostCrew.add(temp.pop());
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.HOST;
         }
     
         count = MathUtils.random(2);
-        for (int i = 0; i < Math.min(temp.size, count); i++) {
-            temp.shuffle();
-            Core.doctorCrew.add(temp.pop());
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.DOCTOR;
         }
     
         count = MathUtils.random(2);
-        for (int i = 0; i < Math.min(temp.size, count); i++) {
-            temp.shuffle();
-            Core.detectiveCrew.add(temp.pop());
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.DETECTIVE;
         }
     
         count = MathUtils.random(4);
-        for (int i = 0; i < Math.min(temp.size, count); i++) {
-            temp.shuffle();
-            Core.liarCrew.add(temp.pop());
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.LIAR;
         }
     
         count = MathUtils.random(2, 4);
-        for (int i = 0; i < Math.min(temp.size, count); i++) {
-            temp.shuffle();
-            Core.loyalistCrew.add(temp.pop());
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.LOYALIST;
         }
     
         Gdx.input.setInputProcessor(null);

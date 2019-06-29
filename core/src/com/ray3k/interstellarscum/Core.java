@@ -24,14 +24,7 @@ public class Core extends Game {
 	public static SkeletonRenderer skeletonRenderer;
 	public static float sfxVolume;
 	public static float bgmVolume;
-	public static Array<String> infectedCrew;
-	public static Array<String> stasisCrew;
-	public static Array<String> livingCrew;
-	public static Array<String> hostCrew;
-	public static Array<String> doctorCrew;
-	public static Array<String> detectiveCrew;
-	public static Array<String> liarCrew;
-	public static Array<String> loyalistCrew;
+	public static Array<Person> crew;
 	public static String player;
 	public static Array<String> names;
 	public static Array<String> accusations;

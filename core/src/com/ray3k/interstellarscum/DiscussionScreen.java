@@ -43,9 +43,17 @@ public class DiscussionScreen implements Screen {
             }
         };
         
+        Person infected = Core.crew.first();
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.SICK) {
+                infected = person;
+                break;
+            }
+        }
+        
         root.pad(20);
         root.defaults().growX().expandY();
-        TypingLabel typingLabel = new TypingLabel("{FAST}{EASE}{COLOR=RED}My god! " + Core.infectedCrew.peek() + " managed to pass screening with the Scum!\nAre we exposed? ARE WE EXPOSED?", skin);
+        TypingLabel typingLabel = new TypingLabel("{FAST}{EASE}{COLOR=RED}My god! " + infected.name + " managed to pass screening with the Scum!\nAre we exposed? ARE WE EXPOSED?", skin);
         typingLabel.setWrap(true);
         root.add(typingLabel);
         labels.add(typingLabel);

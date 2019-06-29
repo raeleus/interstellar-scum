@@ -45,23 +45,27 @@ public class GameScreen implements Screen {
         horizontalGroup.wrapSpace(5);
         table.add(horizontalGroup).grow();
         
-        for (int i = 0; i < Core.infectedCrew.size; i++) {
-            Image image = new Image(skin, "icon-person-sick");
+        for (Person person : Core.crew) {
+            Image image;
+            switch (person.mode) {
+                case SICK:
+                    image = new Image(skin, "icon-person-sick");
+                    break;
+                case HIBERNATED:
+                    image = new Image(skin, "icon-person-hibernation");
+                    break;
+                default:
+                    image = new Image(skin, "icon-person");
+                    break;
+            }
+            
             image.setScaling(Scaling.none);
             horizontalGroup.addActor(image);
         }
     
-        for (int i = 0; i < Core.stasisCrew.size; i++) {
-            Image image = new Image(skin, "icon-person-hibernation");
-            image.setScaling(Scaling.none);
-            horizontalGroup.addActor(image);
-        }
-    
-        for (int i = 0; i < Core.livingCrew.size + 1; i++) {
-            Image image = new Image(skin, "icon-person");
-            image.setScaling(Scaling.none);
-            horizontalGroup.addActor(image);
-        }
+        Image image = new Image(skin, "icon-person");
+        image.setScaling(Scaling.none);
+        horizontalGroup.addActor(image);
         
         table = new Table();
         root.add(table).grow();
@@ -74,20 +78,24 @@ public class GameScreen implements Screen {
 //        scrollPane.setTouchable(Touchable.disabled);
         table.add(scrollPane).width(SCROLL_WIDTH).growY();
         
-        for (String string : Core.livingCrew) {
-            Label label = new Label(string, skin, "name");
-            label.setAlignment(Align.center);
-            scrollTable.add(label).width(SCROLL_WIDTH);
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE) {
+                Label label = new Label(person.name, skin, "name");
+                label.setAlignment(Align.center);
+                scrollTable.add(label).width(SCROLL_WIDTH);
+            }
         }
         
         scrollTable.row();
         
-        for (String string : Core.livingCrew) {
-            SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
-            SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/person.json", SkeletonData.class), Core.skeletonRenderer, template);
-            spineDrawable.getAnimationState().setAnimation(0, "stand", true);
-            Image image = new Image(spineDrawable);
-            scrollTable.add(image);
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE) {
+                SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
+                SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/person.json", SkeletonData.class), Core.skeletonRenderer, template);
+                spineDrawable.getAnimationState().setAnimation(0, "stand", true);
+                image = new Image(spineDrawable);
+                scrollTable.add(image);
+            }
         }
         
         imageButton = new ImageButton(skin, "right");
