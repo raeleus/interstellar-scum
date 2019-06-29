@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.SkeletonData;
@@ -17,9 +18,12 @@ import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
+    private int scrollIndex;
+    private final float SCROLL_WIDTH = 400;
     
     @Override
     public void show() {
+        scrollIndex = 0;
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;
@@ -65,13 +69,36 @@ public class GameScreen implements Screen {
         ImageButton imageButton = new ImageButton(skin, "left");
         table.add(imageButton).growY();
         
-        Table scrollTable = new Table();
-        ScrollPane scrollPane = new ScrollPane(scrollTable);
-        scrollPane.setTouchable(Touchable.disabled);
-        table.add(scrollPane).grow();
+        final Table scrollTable = new Table();
+        final ScrollPane scrollPane = new ScrollPane(scrollTable);
+//        scrollPane.setTouchable(Touchable.disabled);
+        table.add(scrollPane).width(SCROLL_WIDTH).growY();
+        
+        for (String string : Core.livingCrew) {
+            Label label = new Label(string, skin, "name");
+            label.setAlignment(Align.center);
+            scrollTable.add(label).width(SCROLL_WIDTH);
+        }
+        
+        scrollTable.row();
+        
+        for (String string : Core.livingCrew) {
+            SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
+            SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/person.json", SkeletonData.class), Core.skeletonRenderer, template);
+            spineDrawable.getAnimationState().setAnimation(0, "stand", true);
+            Image image = new Image(spineDrawable);
+            scrollTable.add(image);
+        }
         
         imageButton = new ImageButton(skin, "right");
         table.add(imageButton).growY();
+        imageButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                scrollIndex++;
+                scrollPane.setScrollX(scrollIndex * scrollPane.getWidth());
+            }
+        });
         
         root.row();
         table = new Table();
@@ -89,6 +116,12 @@ public class GameScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                for (Actor actor1 : scrollTable.getChildren()) {
+                    if (actor1 instanceof Image) {
+                        ((SpineDrawable) ((Image) actor1).getDrawable()).getAnimationState().setAnimation(1, "hide", false);
+                    }
+                }
+                
                 stage.addAction(Actions.sequence(Actions.fadeOut(1f), Actions.delay(.5f), new SingleAction() {
                     @Override
                     public void perform() {
@@ -100,12 +133,6 @@ public class GameScreen implements Screen {
         
         stage.getRoot().setColor(1,1,1,0);
         stage.addAction(Actions.fadeIn(.5f));
-        
-//        SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
-//        SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/intro.json", SkeletonData.class), Core.skeletonRenderer, template);
-//        Image image = new Image(spineDrawable);
-//        root.add(image);
-    
     }
     
     @Override
