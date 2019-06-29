@@ -108,11 +108,31 @@ public class GameScreen implements Screen {
         
         for (Person person : Core.crew) {
             if (person.mode == Person.Mode.ALIVE) {
+                Stack stack = new Stack();
+                scrollTable.add(stack).width(SCROLL_WIDTH);
+                
                 SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
                 SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/person.json", SkeletonData.class), Core.skeletonRenderer, template);
                 spineDrawable.getAnimationState().setAnimation(0, "stand", true);
                 image = new Image(spineDrawable);
-                scrollTable.add(image);
+                image.setScaling(Scaling.none);
+                image.setAlign(Align.center);
+                stack.add(image);
+                
+                Table subTable = new Table();
+                stack.add(subTable);
+    
+                String text;
+                if (person.accusation != null) {
+                    text = Core.accusations.random();
+                    text = text.replace("<name>", person.accusation.name);
+                } else {
+                    text = Core.neutrals.random();
+                }
+                Label label = new Label(text, skin, "accusation");
+                label.setWrap(true);
+                label.setAlignment(Align.center);
+                subTable.add(label).expandY().bottom().minHeight(49).width(SCROLL_WIDTH);
             }
         }
         

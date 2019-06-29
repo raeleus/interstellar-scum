@@ -117,6 +117,10 @@
 	},
 	"heading": {
 		"font": "heading"
+	},
+	"accusation": {
+		"font": "font",
+		"background": "accusation-container"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {

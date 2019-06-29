@@ -86,7 +86,7 @@ public class Person {
                 if (MathUtils.randomBoolean(.5f) && accusedList.contains(this, false)) {
                     livingCrew.shuffle();
                     for (Person person : livingCrew) {
-                        if (person.accusation.equals(this)) {
+                        if (person.accusation != null && person.accusation.equals(this)) {
                             accusation = person;
                             break;
                         }

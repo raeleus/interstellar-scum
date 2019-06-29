@@ -4,6 +4,15 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+accusation-container
+  rotate: false
+  xy: 1983, 1998
+  size: 52, 49
+  split: 18, 18, 18, 18
+  pad: 11, 11, 5, 5
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
 barf-00
   rotate: false
   xy: 1544, 1437
@@ -57,7 +66,7 @@ button-arrow-bg
   index: -1
 button-arrow-left
   rotate: false
-  xy: 1983, 1968
+  xy: 1983, 1969
   size: 16, 27
   orig: 16, 27
   offset: 0, 0
@@ -95,21 +104,21 @@ earth
   index: -1
 eye
   rotate: false
-  xy: 1398, 1619
+  xy: 1441, 1619
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 eye-closed
   rotate: false
-  xy: 1919, 1909
+  xy: 1869, 1716
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 eye-partial
   rotate: false
-  xy: 1869, 1716
+  xy: 1398, 1611
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
@@ -289,14 +298,14 @@ progress-bar
   index: -1
 progress-bar-knob
   rotate: false
-  xy: 1962, 1920
+  xy: 1971, 1920
   size: 4, 30
   orig: 4, 30
   offset: 0, 0
   index: -1
 pupil
   rotate: false
-  xy: 2035, 2037
+  xy: 2037, 2037
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -320,7 +329,7 @@ scroll-horizontal
   index: -1
 scroll-vertical
   rotate: false
-  xy: 1919, 1881
+  xy: 1919, 1872
   size: 5, 26
   split: 2, 2, 2, 2
   orig: 5, 26
@@ -335,7 +344,7 @@ ship
   index: -1
 star
   rotate: false
-  xy: 1983, 1997
+  xy: 1919, 1900
   size: 50, 50
   orig: 50, 50
   offset: 0, 0

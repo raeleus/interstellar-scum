@@ -41,6 +41,8 @@ public class QuarantineScreen implements Screen {
         for (Person person : Core.crew) {
             if (person.mode == Person.Mode.ALIVE) {
                 livingCrew.add(person);
+                person.accusation = null;
+                person.vote = null;
             }
         }
         showDiscussion = livingCrew.size == 15;
