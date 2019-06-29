@@ -3,6 +3,7 @@ package com.ray3k.interstellarscum;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,9 +21,15 @@ import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 public class MenuScreen implements Screen {
     private Stage stage;
     private Skin skin;
+    private static Music music;
     
     @Override
     public void show() {
+        if (music == null) {
+            music = Core.assetManager.get("bgm/music.mp3");
+            music.setLooping(true);
+            music.play();
+        }
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;

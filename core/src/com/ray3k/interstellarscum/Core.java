@@ -63,6 +63,8 @@ public class Core extends Game {
 		assetManager.load("sfx/libgdx.mp3", Sound.class);
 		assetManager.load("sfx/bubble.mp3", Sound.class);
 		
+		assetManager.load("bgm/music.mp3", Music.class);
+		
 		ParticleEffectLoader.ParticleEffectParameter particleEffectParameter = new ParticleEffectLoader.ParticleEffectParameter();
 		particleEffectParameter.atlasFile = "skin/interstellar-scum.atlas";
 		assetManager.load("particles/barf.p", ParticleEffect.class, particleEffectParameter);
@@ -82,7 +84,7 @@ public class Core extends Game {
 		neutrals = new Array<String>(text.split("\\n"));
 		
 		//set screen
-		setScreen(new MenuScreen());
+		setScreen(new PreloaderScreen());
 	}
 
 	@Override
