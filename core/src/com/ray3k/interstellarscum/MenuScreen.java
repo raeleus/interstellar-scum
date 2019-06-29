@@ -101,7 +101,7 @@ public class MenuScreen implements Screen {
         }
         
         Array<Person> tempCrew = new Array<Person>(Core.crew);
-        int count = MathUtils.random(1, 2);
+        int count = MathUtils.random(2, 4);
         for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
             tempCrew.shuffle();
             Person person = tempCrew.pop();
