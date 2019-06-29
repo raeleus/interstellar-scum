@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.esotericsoftware.spine.SkeletonData;
@@ -23,12 +24,19 @@ public class GameScreen implements Screen {
     
     @Override
     public void show() {
+        final Array<Person> livingCrew = new Array<Person>();
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE) {
+                livingCrew.add(person);
+            }
+        }
+        
         scrollIndex = 0;
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;
     
-        Table root = new Table();
+        final Table root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
         
@@ -72,10 +80,20 @@ public class GameScreen implements Screen {
         
         ImageButton imageButton = new ImageButton(skin, "left");
         table.add(imageButton).growY();
+        imageButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                scrollIndex--;
+                if (scrollIndex < 0) scrollIndex = 0;
+                ScrollPane scrollPane = root.findActor("scrollPane");
+                scrollPane.setScrollX(scrollIndex * scrollPane.getWidth());
+            }
+        });
         
         final Table scrollTable = new Table();
         final ScrollPane scrollPane = new ScrollPane(scrollTable);
-//        scrollPane.setTouchable(Touchable.disabled);
+        scrollPane.setName("scrollPane");
+        scrollPane.setTouchable(Touchable.disabled);
         table.add(scrollPane).width(SCROLL_WIDTH).growY();
         
         for (Person person : Core.crew) {
@@ -104,6 +122,7 @@ public class GameScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 scrollIndex++;
+                if (scrollIndex >= livingCrew.size) scrollIndex = livingCrew.size - 1;
                 scrollPane.setScrollX(scrollIndex * scrollPane.getWidth());
             }
         });
