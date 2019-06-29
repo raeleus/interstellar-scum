@@ -103,7 +103,12 @@ public class ResultScreen implements Screen {
         root.add(label);
         
         root.row();
-        label = new Label("All crew infected by day 13", skin, "heading");
+        if (foundHost) {
+            text = "All crew infected by day " + Core.daysToComplete;
+        } else {
+            text = "Reached destination by day " + Core.daysToComplete;
+        }
+        label = new Label(text, skin, "heading");
         root.add(label);
         
         root.row();

@@ -73,6 +73,7 @@ public class VoteScreen implements Screen {
         } else {
             text += "\n" + hibernatePerson.name.toUpperCase() + " WILL BE PUT INTO STASIS!";
             hibernatePerson.mode = Person.Mode.HIBERNATED;
+            Core.daysToComplete += Core.SINGLE_PERSON_WORK;
         }
         
         label = new Label(text, skin);

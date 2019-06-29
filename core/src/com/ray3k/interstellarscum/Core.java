@@ -30,9 +30,12 @@ public class Core extends Game {
 	public static Array<String> accusations;
 	public static Array<String> neutrals;
 	public static ObjectMap<String, Array<String>> crewToVoteMap;
+	public static int daysToComplete;
+	public static final int SINGLE_PERSON_WORK = 23;
 	
 	@Override
 	public void create () {
+		daysToComplete = 365;
 		//set variables
 		core = this;
 		assetManager = new AssetManager(new InternalFileHandleResolver());

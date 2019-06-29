@@ -151,11 +151,12 @@ public class GameScreen implements Screen {
         table = new Table();
         root.add(table);
     
-        ProgressBar progressBar = new ProgressBar(0, 1,1,false, skin);
+        ProgressBar progressBar = new ProgressBar(0, Core.daysToComplete, 1, false, skin);
+        progressBar.setValue(Core.daysToComplete / livingCrew.size);
         table.add(progressBar);
         
         table.row();
-        Label label = new Label("Days to arrival: 365", skin);
+        Label label = new Label("Days to arrival: " + (Core.daysToComplete - Core.daysToComplete / livingCrew.size + 1), skin);
         table.add(label);
         
         TextButton textButton = new TextButton("VOTE", skin);
