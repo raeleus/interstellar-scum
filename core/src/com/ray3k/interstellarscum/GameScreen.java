@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private int scrollIndex;
-    private final float SCROLL_WIDTH = 400;
+    private final float SCROLL_WIDTH = 600;
     
     @Override
     public void show() {
