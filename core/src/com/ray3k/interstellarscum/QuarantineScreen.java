@@ -67,7 +67,13 @@ public class QuarantineScreen implements Screen {
         }
     
         for (Person person : uninfectedCrew) {
-            if (person.type != Person.Type.LIAR && person.type != Person.Type.DETECTIVE) {
+            if (person.type != Person.Type.LIAR && person.type != Person.Type.DETECTIVE && person.type != Person.Type.NORMAL) {
+                person.chooseAccusation();
+            }
+        }
+    
+        for (Person person : uninfectedCrew) {
+            if (person.type == Person.Type.NORMAL) {
                 person.chooseAccusation();
             }
         }

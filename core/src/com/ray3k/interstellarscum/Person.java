@@ -37,6 +37,7 @@ public class Person {
         
         switch (type) {
             case LIAR:
+                //randomly accuse someone
                 if (MathUtils.randomBoolean(.75f)) {
                     Person accused = livingCrew.random();
                     accusation = accused;
@@ -44,11 +45,13 @@ public class Person {
                 }
                 break;
             case COPYCAT:
+                //copy the accusation of someone else
                 if (accusedList.size > 0) {
                     accusation = accusedList.random();
                 }
                 break;
             case DETECTIVE:
+                //detect if someone is a host
                 Array<Person> suspects = new Array<Person>(livingCrew);
                 for (Person person : detectiveChecked) {
                     suspects.removeValue(person, false);
@@ -60,6 +63,7 @@ public class Person {
                     detectiveFound.add(suspect);
                 }
                 
+                //accuse anyone found to be a host
                 if (detectiveFound.size > 0) {
                     accusation = detectiveFound.random();
                 }
@@ -67,13 +71,27 @@ public class Person {
                 break;
             case HOST:
                 if (accusedList.size > 0 && MathUtils.randomBoolean(.75f)) {
+                    //copy the accusation of someone else
                     accusation = accusedList.random();
                 } else if (MathUtils.randomBoolean(.75f)) {
+                    //randomly accuse someone
                     Person accused = livingCrew.random();
                     accusation = accused;
                     accusedList.add(accused);
                 }
                 
+                break;
+            case NORMAL:
+                //retaliatory accusation if being accused
+                if (MathUtils.randomBoolean(.5f) && accusedList.contains(this, false)) {
+                    livingCrew.shuffle();
+                    for (Person person : livingCrew) {
+                        if (person.accusation.equals(this)) {
+                            accusation = person;
+                            break;
+                        }
+                    }
+                }
                 break;
         }
     }
