@@ -38,7 +38,20 @@ public class SpaceScreen implements Screen {
             @Override
             public void complete(AnimationState.TrackEntry entry) {
                 if (entry.getAnimation().getName().equals("hide")) {
-                    Core.core.setScreen(new QuarantineScreen());
+                    boolean foundHost = false;
+    
+                    for (Person person : Core.crew) {
+                        if (person.type == Person.Type.HOST && person.mode == Person.Mode.ALIVE) {
+                            foundHost = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!foundHost) {
+                        Core.core.setScreen(new ResultScreen());
+                    } else {
+                        Core.core.setScreen(new QuarantineScreen());
+                    }
                 }
             }
         });

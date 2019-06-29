@@ -43,34 +43,63 @@ public class ResultScreen implements Screen {
     
         label = new Label("SURVIVORS", skin, "heading");
         table.add(label);
+    
+        boolean foundHost = false;
+    
+        for (Person person : Core.crew) {
+            if (person.type == Person.Type.HOST && person.mode == Person.Mode.ALIVE) {
+                foundHost = true;
+                break;
+            }
+        }
         
         table.row();
-        label = new Label("Phillipa (The Host)\n" +
-                "Kyla (Crew)\n" +
-                "Neve (Crew)\n" +
-                "Kaven (Investigator)\n" +
-                "Elias (Doctor)", skin);
+        String text = "";
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.SICK) {
+                text += person.name + " (" + person.type + ")\n";
+            }
+        }
+        if (foundHost) {
+            text += Core.player + " (CAPTAIN)\n";
+        }
+        label = new Label(text, skin);
         ScrollPane scrollPane = new ScrollPane(label, skin);
-        table.add(scrollPane);
+        scrollPane.setFadeScrollBars(false);
+        table.add(scrollPane).fill().uniform();
     
-        label = new Label("Phillipa (The Host)\n" +
-                "Kyla (Crew)\n" +
-                "Neve (Crew)\n" +
-                "Kaven (Investigator)\n" +
-                "Elias (Doctor)", skin);
+        text = "";
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.HIBERNATED) {
+                text += person.name + " (" + person.type + ")\n";
+            }
+        }
+        label = new Label(text, skin);
         scrollPane = new ScrollPane(label, skin);
-        table.add(scrollPane);
+        scrollPane.setFadeScrollBars(false);
+        table.add(scrollPane).fill().uniform();
     
-        label = new Label("Phillipa (The Host)\n" +
-                "Kyla (Crew)\n" +
-                "Neve (Crew)\n" +
-                "Kaven (Investigator)\n" +
-                "Elias (Doctor)", skin);
+        text = "";
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE) {
+                text += person.name + " (" + person.type + ")\n";
+            }
+        }
+        if (!foundHost) {
+            text += Core.player + " (CAPTAIN)\n";
+        }
+        label = new Label(text, skin);
         scrollPane = new ScrollPane(label, skin);
-        table.add(scrollPane);
+        scrollPane.setFadeScrollBars(false);
+        table.add(scrollPane).fill().uniform();
         
         root.row();
-        label = new Label("MISSION: FAILURE", skin, "subtitle");
+        if (foundHost) {
+            text = "MISSION: FAILURE";
+        } else {
+            text = "MISSION: SUCCESS";
+        }
+        label = new Label(text, skin, "subtitle");
         root.add(label);
         
         root.row();

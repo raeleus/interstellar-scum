@@ -41,11 +41,17 @@ public class Person {
                 vote = accusation;
                 break;
             case COPYCAT:
-                vote = accusedList.random();
+                Array<Person> people = new Array<Person>(accusedList);
+                people.removeValue(this, false);
+                vote = people.random();
                 break;
             case NORMAL:
                 if (accusation != null) vote = accusation;
-                else if (MathUtils.randomBoolean(.75f)) vote = accusedList.random();
+                else if (MathUtils.randomBoolean(.75f)) {
+                    people = new Array<Person>(accusedList);
+                    people.removeValue(this, false);
+                    vote = people.random();
+                }
                 break;
             case LOYALIST:
                 vote = playerVote;
@@ -54,6 +60,8 @@ public class Person {
                 vote = hostTarget;
                 break;
         }
+        
+        if (vote != null && vote.equals(this)) vote = null;
     }
     
     public void chooseAccusation() {
