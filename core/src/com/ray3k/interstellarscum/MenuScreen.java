@@ -120,6 +120,13 @@ public class MenuScreen implements Screen {
             person.type = Person.Type.LIAR;
         }
     
+        count = MathUtils.random(2);
+        for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
+            tempCrew.shuffle();
+            Person person = tempCrew.pop();
+            person.type = Person.Type.COPYCAT;
+        }
+    
         count = MathUtils.random(2, 4);
         for (int i = 0; i < Math.min(tempCrew.size, count); i++) {
             tempCrew.shuffle();

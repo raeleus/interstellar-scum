@@ -33,6 +33,8 @@ public class QuarantineScreen implements Screen {
     
     @Override
     public void show() {
+        Person.accusedList.clear();
+        
         Array<Person> livingCrew = new Array<Person>();
         for (Person person : Core.crew) {
             if (person.mode == Person.Mode.ALIVE) {
@@ -40,12 +42,24 @@ public class QuarantineScreen implements Screen {
             }
         }
         showDiscussion = livingCrew.size == 15;
-        particleEffect = Core.assetManager.get("particles/barf.p");
-        
         
         Person infected = livingCrew.random();
         infected.mode = Person.Mode.SICK;
+        livingCrew.removeValue(infected, false);
         
+        for (Person person : livingCrew) {
+            if (person.type == Person.Type.LIAR || person.type == Person.Type.DETECTIVE) {
+                person.chooseAccusation();
+            }
+        }
+    
+        for (Person person : livingCrew) {
+            if (person.type != Person.Type.LIAR && person.type != Person.Type.DETECTIVE) {
+                person.chooseAccusation();
+            }
+        }
+        
+        particleEffect = Core.assetManager.get("particles/barf.p");
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
         Gdx.input.setInputProcessor(stage);
         skin = Core.skin;
