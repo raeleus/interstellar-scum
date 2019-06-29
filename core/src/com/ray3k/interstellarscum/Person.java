@@ -47,7 +47,9 @@ public class Person {
             case COPYCAT:
                 //copy the accusation of someone else
                 if (accusedList.size > 0) {
-                    accusation = accusedList.random();
+                    Array<Person> persons = new Array<Person>(accusedList);
+                    persons.removeValue(this, false);
+                    accusation = persons.random();
                 }
                 break;
             case DETECTIVE:
@@ -72,7 +74,9 @@ public class Person {
             case HOST:
                 if (accusedList.size > 0 && MathUtils.randomBoolean(.75f)) {
                     //copy the accusation of someone else
-                    accusation = accusedList.random();
+                    Array<Person> persons = new Array<Person>(accusedList);
+                    persons.removeValue(this, false);
+                    accusation = persons.random();
                 } else if (MathUtils.randomBoolean(.75f)) {
                     //randomly accuse someone
                     Person accused = livingCrew.random();
@@ -94,5 +98,7 @@ public class Person {
                 }
                 break;
         }
+    
+        if (accusation != null && accusation.equals(this)) accusation = null;
     }
 }
