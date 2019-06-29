@@ -28,6 +28,7 @@ public class MenuScreen implements Screen {
         if (music == null) {
             music = Core.assetManager.get("bgm/music.mp3");
             music.setLooping(true);
+            music.setVolume(.5f);
             music.play();
         }
         stage = new Stage(new ScreenViewport(), new TwoColorPolygonBatch());
@@ -68,6 +69,7 @@ public class MenuScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Core.core.playSound("confirm",1);
                 nextScreen();
             }
         });

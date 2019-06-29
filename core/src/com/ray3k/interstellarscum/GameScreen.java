@@ -164,6 +164,7 @@ public class GameScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Core.core.playSound("confirm",1);
                 Person.playerVote = livingCrew.get(scrollIndex);
                 if (!Person.accusedList.contains(Person.playerVote, false)) {
                     Person.accusedList.add(Person.playerVote);

@@ -86,6 +86,7 @@ public class VoteScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Core.core.playSound("hibernate",1);
                 Gdx.input.setInputProcessor(null);
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(1), new SingleAction() {
                     @Override
