@@ -57,6 +57,19 @@ public class QuarantineScreen implements Screen {
         }
         
         Person infected = uninfectedCrew.random();
+        
+        if (livingCrew.size != 15) for (Person person : livingCrew) {
+            if (person.type == Person.Type.DOCTOR) {
+                Array<Person> others = new Array<Person>(livingCrew);
+                others.removeValue(person, false);
+                
+                if (infected.equals(others.random())) {
+                    infected = null;
+                    break;
+                }
+            }
+        }
+        
         if (infected != null) {
             infected.mode = Person.Mode.SICK;
             uninfectedCrew.removeValue(infected, false);
@@ -90,14 +103,24 @@ public class QuarantineScreen implements Screen {
         stage.addActor(root);
     
         root.pad(20);
-        final TypingLabel typingLabel = new TypingLabel("{EASE}" + (infected != null ? infected.name : Core.player) + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
+        String text;
+        if (infected != null || livingCrew.size == 0) {
+            text = "{EASE}" + (infected != null ? infected.name : Core.player) + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}";
+        } else {
+            text = "{EASE}Nothing of interest has happened since the last jump!{ENDEASE}";
+        }
+        final TypingLabel typingLabel = new TypingLabel(text, skin);
         root.add(typingLabel);
         typingLabel.pause();
         
         root.row();
         SpineDrawable.SpineDrawableTemplate template = new SpineDrawable.SpineDrawableTemplate();
         final SpineDrawable spineDrawable = new SpineDrawable(Core.assetManager.get("spine/person.json", SkeletonData.class), Core.skeletonRenderer, template);
-        spineDrawable.getAnimationState().setAnimation(0, "sick", true);
+        if (infected != null || livingCrew.size == 0) {
+            spineDrawable.getAnimationState().setAnimation(0, "sick", true);
+        } else {
+            spineDrawable.getAnimationState().setAnimation(0, "stand", true);
+        }
         Image image = new Image(spineDrawable);
         root.add(image).expand();
         spineDrawable.getAnimationState().addListener(new AnimationState.AnimationStateAdapter() {
