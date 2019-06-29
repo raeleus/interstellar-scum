@@ -44,7 +44,7 @@ public class VoteScreen implements Screen {
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(1), new SingleAction() {
                     @Override
                     public void perform() {
-                        Core.core.setScreen(new GameScreen());
+                        Core.core.setScreen(new SpaceScreen());
                     }
                 }));
             }

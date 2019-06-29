@@ -30,7 +30,7 @@ public class Person {
     public void chooseAccusation() {
         Array<Person> livingCrew = new Array<Person>();
         for (Person person : Core.crew) {
-            if (person.mode == Person.Mode.ALIVE) {
+            if (person.mode == Person.Mode.ALIVE && !person.equals(this)) {
                 livingCrew.add(person);
             }
         }
@@ -56,7 +56,7 @@ public class Person {
                 
                 Person suspect = suspects.random();
                 detectiveChecked.add(suspect);
-                if (suspect.type == Type.HOST) {
+                if (suspect != null && suspect.type == Type.HOST) {
                     detectiveFound.add(suspect);
                 }
                 

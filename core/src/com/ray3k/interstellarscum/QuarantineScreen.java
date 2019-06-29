@@ -25,6 +25,8 @@ import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 import regexodus.Matcher;
 import regexodus.Pattern;
 
+import java.util.Iterator;
+
 public class QuarantineScreen implements Screen {
     private Stage stage;
     private Skin skin;
@@ -35,7 +37,7 @@ public class QuarantineScreen implements Screen {
     public void show() {
         Person.accusedList.clear();
         
-        Array<Person> livingCrew = new Array<Person>();
+        final Array<Person> livingCrew = new Array<Person>();
         for (Person person : Core.crew) {
             if (person.mode == Person.Mode.ALIVE) {
                 livingCrew.add(person);
@@ -43,17 +45,28 @@ public class QuarantineScreen implements Screen {
         }
         showDiscussion = livingCrew.size == 15;
         
-        Person infected = livingCrew.random();
-        infected.mode = Person.Mode.SICK;
-        livingCrew.removeValue(infected, false);
+        final Array<Person> uninfectedCrew = new Array<Person>(livingCrew);
+        Iterator<Person> iter = uninfectedCrew.iterator();
+        while (iter.hasNext()) {
+            Person person = iter.next();
+            if (person.type == Person.Type.HOST) {
+                iter.remove();
+            }
+        }
         
-        for (Person person : livingCrew) {
+        Person infected = uninfectedCrew.random();
+        if (infected != null) {
+            infected.mode = Person.Mode.SICK;
+            uninfectedCrew.removeValue(infected, false);
+        }
+        
+        for (Person person : uninfectedCrew) {
             if (person.type == Person.Type.LIAR || person.type == Person.Type.DETECTIVE) {
                 person.chooseAccusation();
             }
         }
     
-        for (Person person : livingCrew) {
+        for (Person person : uninfectedCrew) {
             if (person.type != Person.Type.LIAR && person.type != Person.Type.DETECTIVE) {
                 person.chooseAccusation();
             }
@@ -69,7 +82,7 @@ public class QuarantineScreen implements Screen {
         stage.addActor(root);
     
         root.pad(20);
-        final TypingLabel typingLabel = new TypingLabel("{EASE}" + infected.name + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
+        final TypingLabel typingLabel = new TypingLabel("{EASE}" + (infected != null ? infected.name : Core.player) + " is sick and has been quarantined! The telltale signs of infection are abundant.{ENDEASE}", skin);
         root.add(typingLabel);
         typingLabel.pause();
         
@@ -114,8 +127,10 @@ public class QuarantineScreen implements Screen {
                     public void perform() {
                         if (showDiscussion) {
                             Core.core.setScreen(new DiscussionScreen());
-                        } else {
+                        } else if (uninfectedCrew.size > 0){
                             Core.core.setScreen(new GameScreen());
+                        } else {
+                            Core.core.setScreen(new ResultScreen());
                         }
                     }
                 }));
