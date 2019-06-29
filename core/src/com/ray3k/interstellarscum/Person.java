@@ -14,6 +14,8 @@ public class Person {
     private Array<Person> detectiveFound = new Array<Person>();
     
     public static Array<Person> accusedList = new Array<Person>();
+    public static Person playerVote;
+    public static Person hostTarget;
     
     public static enum Type {
         LIAR, HOST, DETECTIVE, DOCTOR, LOYALIST, COPYCAT, NORMAL
@@ -24,7 +26,34 @@ public class Person {
     }
     
     public void chooseVote() {
-    
+        Array<Person> livingCrew = new Array<Person>();
+        for (Person person : Core.crew) {
+            if (person.mode == Person.Mode.ALIVE && !person.equals(this)) {
+                livingCrew.add(person);
+            }
+        }
+        
+        switch (type) {
+            case LIAR:
+                vote = accusation;
+                break;
+            case DETECTIVE:
+                vote = accusation;
+                break;
+            case COPYCAT:
+                vote = accusedList.random();
+                break;
+            case NORMAL:
+                if (accusation != null) vote = accusation;
+                else if (MathUtils.randomBoolean(.75f)) vote = accusedList.random();
+                break;
+            case LOYALIST:
+                vote = playerVote;
+                break;
+            case HOST:
+                vote = hostTarget;
+                break;
+        }
     }
     
     public void chooseAccusation() {
@@ -100,5 +129,6 @@ public class Person {
         }
     
         if (accusation != null && accusation.equals(this)) accusation = null;
+        if (accusation != null && accusation.mode != Mode.ALIVE) accusation = null;
     }
 }

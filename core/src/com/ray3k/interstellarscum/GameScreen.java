@@ -163,6 +163,22 @@ public class GameScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Person.playerVote = livingCrew.get(scrollIndex);
+                if (!Person.accusedList.contains(Person.playerVote, false)) {
+                    Person.accusedList.add(Person.playerVote);
+                }
+                Array<Person> targetList = new Array<Person>(Person.accusedList);
+                for (Person person : livingCrew) {
+                    if (person.type == Person.Type.HOST) {
+                        targetList.removeValue(person, false);
+                    }
+                }
+                Person.hostTarget = targetList.random();
+                
+                for (Person person : livingCrew) {
+                    person.chooseVote();
+                }
+                
                 for (Actor actor1 : scrollTable.getChildren()) {
                     if (actor1 instanceof Image) {
                         ((SpineDrawable) ((Image) actor1).getDrawable()).getAnimationState().setAnimation(1, "hide", false);
