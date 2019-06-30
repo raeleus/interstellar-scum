@@ -89,7 +89,7 @@ public class Core extends Game {
 
 	@Override
 	public void render () {
-		float delta = Math.min(Gdx.graphics.getDeltaTime(), .02f);
+		float delta = Gdx.graphics.getDeltaTime();
 		if (screen != null) screen.render(delta);
 	}
 	
